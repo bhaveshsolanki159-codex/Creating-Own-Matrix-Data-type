@@ -12,27 +12,35 @@ class matrix:
         choice = int(input())
 
         if choice == 1:
-            self.create_matrix(choice)
-            self.addition()
+            no_of_matrix = int(input("Enter the number of matrices: "))
+            self.create_matrix()
+            self.addition(no_of_matrix)
         elif choice == 2:
-            self.create_matrix(choice)
-            self.subtraction()
+            no_of_matrix = int(input("Enter the number of matrices: "))
+            self.create_matrix()
+            self.subtraction(no_of_matrix)
         elif choice == 3:
-            self.create_matrix(choice)
-            self.multiplication()
+            no_of_matrix = int(input("Enter the number of matrices: "))
+            self.create_matrix()
+            self.multiplication(no_of_matrix)
         elif choice == 4:
-            self.create_matrix(choice)
-            self.division()
+            no_of_matrix = int(input("Enter the number of matrices: "))
+            self.create_matrix()
+            self.division(no_of_matrix)
         elif choice == 5:
             self.create_single_matrix()
             self.transpose()
         elif choice == 6:
+            self.create_single_matrix()
             self.determinant()
         elif choice == 7:
+            self.create_single_matrix()
             self.inverse()
         elif choice == 8:
+            self.create_single_matrix()
             self.rank()
         elif choice == 9:
+            self.create_single_matrix()
             self.power()
         elif choice == 10:
             print("Exiting the program...")
@@ -41,7 +49,7 @@ class matrix:
             print("Invalid choice!")
             self.choose_operation()
     
-    def create_matrix(self, choice):
+    def create_matrix(self):
         try:
             no_of_matrix = int(input("Enter the number of matrices: "))
             for x in range(no_of_matrix):
@@ -57,7 +65,7 @@ class matrix:
             print(self.matrix)
         except ValueError:
             print("Invalid input! Please enter integers only.")
-            self.create_matrix(choice)
+            self.create_matrix()
                 
     def create_single_matrix(self):
         try:
@@ -73,9 +81,21 @@ class matrix:
             print("Invalid input! Please enter integers only.")
             self.create_single_matrix()
     
-    def addition(self):
-        # Implement addition logic here
-        pass
+    def addition(self, no_of_matrix):
+        sample = self.matrix
+        try:
+            new_matrix = [[0,0],[0,0]] 
+            for j in range(self.col):
+                for i in range(self.row):
+                    for y in range(no_of_matrix):
+                        new_matrix[i][j] += sample[y][i][j]
+                    # new_matrix.append(new_matrix[i][j])
+
+            self.matrix = new_matrix
+            print(self.matrix)
+        except:
+            print("Invalid logic")
+        
 
     def subtraction(self):
         # Implement subtraction logic here
