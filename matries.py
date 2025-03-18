@@ -97,9 +97,20 @@ class matrix:
             print("Invalid logic")
         
 
-    def subtraction(self):
-        # Implement subtraction logic here
-        pass
+    def subtraction(self, no_of_matrix):
+        sample = self.matrix
+        try:
+            new_matrix = [[0,0],[0,0]] 
+            for j in range(self.col):
+                for i in range(self.row):
+                    for y in range(no_of_matrix):
+                        new_matrix[i][j] -= sample[y][i][j]
+                    # new_matrix.append(new_matrix[i][j])
+
+            self.matrix = new_matrix
+            print(self.matrix)
+        except:
+            print("Invalid logic")
 
     def multiplication(self):
         # Implement multiplication logic here
