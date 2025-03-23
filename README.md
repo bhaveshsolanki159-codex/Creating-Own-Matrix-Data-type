@@ -27,8 +27,8 @@ The **Matrix Calculator** is a Python-based console application that allows user
    ```
 3. Download or clone this repository:
    ```bash
-   git clone https://github.com/your-username/matrix-calculator.git
-   cd matrix-calculator
+   git clone https://github.com/bhaveshsolanki159-codex/Creating-Own-Matrix-Data-type.git
+   cd Creating-Own-Matrix-Data-type
    ```
 
 ## Usage
