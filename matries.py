@@ -1,3 +1,5 @@
+import numpy as np
+
 class matrix:
     def __init__(self):
         self.matrix = []
