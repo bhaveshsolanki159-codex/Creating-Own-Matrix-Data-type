@@ -1,10 +1,10 @@
-import numpy as np
 
-class matrix:
+
+class Matrix:
     def __init__(self):
-        self.matrix = []
-        self.row = 0
+        self.matrices = [] #for list of matrices
         self.col = 0
+        self.row = 0
         self.choose_operation()
 
     
@@ -14,35 +14,35 @@ class matrix:
         choice = int(input())
 
         if choice == 1:
-            no_of_matrix = int(input("Enter the number of matrices: "))
-            self.create_matrix()
-            self.addition(no_of_matrix)
+            n = int(input("Enter the number of matrices: "))
+            self.create_matrices(n)
+            self.addition(n)
         elif choice == 2:
-            no_of_matrix = int(input("Enter the number of matrices: "))
-            self.create_matrix()
-            self.subtraction(no_of_matrix)
+            n = int(input("Enter the number of matrices: "))
+            self.create_matrices(n)
+            self.subtraction(n)
         elif choice == 3:
-            no_of_matrix = int(input("Enter the number of matrices: "))
-            self.create_matrix()
-            self.multiplication(no_of_matrix)
+            n = int(input("Enter the number of matrices: "))
+            self.create_matrices(n)
+            self.multiplication(n)
         elif choice == 4:
-            no_of_matrix = int(input("Enter the number of matrices: "))
-            self.create_matrix()
-            self.division(no_of_matrix)
+            n = int(input("Enter the number of matrices: "))
+            self.create_matrices(111)
+            self.division(n)
         elif choice == 5:
-            self.create_single_matrix()
+            self.create_matrices(1)
             self.transpose()
         elif choice == 6:
-            self.create_single_matrix()
+            self.create_matrices(1)
             self.determinant()
         elif choice == 7:
-            self.create_single_matrix()
+            self.create_matrices(1)
             self.inverse()
         elif choice == 8:
-            self.create_single_matrix()
+            self.create_matrices(1)
             self.rank()
         elif choice == 9:
-            self.create_single_matrix()
+            self.create_matrices(1)
             self.power()
         elif choice == 10:
             print("Exiting the program...")
@@ -51,66 +51,54 @@ class matrix:
             print("Invalid choice!")
             self.choose_operation()
     
-    def create_matrix(self):
+    def create_matrices(self, n):
         try:
-            no_of_matrix = int(input("Enter the number of matrices: "))
-            for x in range(no_of_matrix):
-                self.row = int(input("Enter the number of rows: "))  # n
-                self.col = int(input("Enter the number of columns: "))  # m
-                sample = []
-                for i in range(self.row):
-                    a = []
-                    for j in range(self.col):
-                        a.append(int(input(f"Enter element [{i}][{j}]: ")))
-                    sample.append(a)
-                self.matrix.append(sample)
-            print(self.matrix)
-        except ValueError:
+            self.matrices = []
+            for k in range(n):
+                self.row = int(input(f"Rows for Matrix {k+1}: " ))
+                self.col = int(input(f"Column for Matrix {k+1}: " ))
+                self.matrices.append(self.get_matrix_input(self.row, self.col))
+            
+        except IndexError:
             print("Invalid input! Please enter integers only.")
-            self.create_matrix()
+            self.create_matrices(n)
                 
-    def create_single_matrix(self):
+    def get_matrix_input(self ,row ,col):
         try:
-            self.row = int(input("Enter the number of rows: "))  # n
-            self.col = int(input("Enter the number of columns: "))  # m
-            for i in range(self.row):
-                a = []
-                for j in range(self.col):
-                    a.append(int(input(f"Enter element [{i}][{j}]: ")))
-                self.matrix.append(a)
-            print(self.matrix)
-        except ValueError:
+            return [[int(input(f"Element[{i}][{j}]: "))for j in range(col)] for i in range(row)]
+        
+        except IndexError:
             print("Invalid input! Please enter integers only.")
-            self.create_single_matrix()
+            self.get_matrix_input(self.row, self.col)
     
-    def addition(self, no_of_matrix):
-        sample = self.matrix
+    def addition(self, n):
+        sample = self.matrices
         try:
-            new_matrix = [[0,0],[0,0]] 
-            for j in range(self.col):
-                for i in range(self.row):
-                    for y in range(no_of_matrix):
+            new_matrix = [[ 0 for _ in range(self.col)] for _ in range(self.row)]
+            for i in range(self.row):
+                for j in range(self.col):
+                    for y in range(n):
                         new_matrix[i][j] += sample[y][i][j]
                     # new_matrix.append(new_matrix[i][j])
 
-            self.matrix = new_matrix
-            print(self.matrix)
+            self.matrices = new_matrix
+            print(self.matrices)
         except:
             print("Invalid logic")
         
 
-    def subtraction(self, no_of_matrix):
-        sample = self.matrix
+    def subtraction(self, n):
+        sample = self.matrices
         try:
-            new_matrix = [[0,0],[0,0]] 
-            for j in range(self.col):
-                for i in range(self.row):
-                    for y in range(no_of_matrix):
+            new_matrix =[[ 0 for _ in range(self.col)] for _ in range(self.row)] 
+            for i in range(self.row):
+                for j in range(self.col):
+                    for y in range(n):
                         new_matrix[i][j] -= sample[y][i][j]
                     # new_matrix.append(new_matrix[i][j])
 
-            self.matrix = new_matrix
-            print(self.matrix)
+            self.matrices = new_matrix
+            print(self.matrices)
         except:
             print("Invalid logic")
 
@@ -143,4 +131,6 @@ class matrix:
         pass
 
 
-X = matrix()
+X = Matrix()
+
+
