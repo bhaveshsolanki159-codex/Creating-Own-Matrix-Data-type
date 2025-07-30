@@ -23,12 +23,12 @@ class Matrix:
             self.subtraction(n)
         elif choice == 3:
             n = int(input("Enter the number of matrices: "))
-            self.create_matrices(n)
-            self.multiplication(n)
+            self.create_matrices(1)
+            self.multiplication()
         elif choice == 4:
             n = int(input("Enter the number of matrices: "))
-            self.create_matrices(111)
-            self.division(n)
+            self.create_matrices(1)
+            self.division()
         elif choice == 5:
             self.create_matrices(1)
             self.transpose()
@@ -54,53 +54,53 @@ class Matrix:
     def create_matrices(self, n):
         try:
             self.matrices = []
+            print("Enter the number of rows and columns for all matrices (they must be the same for addition/subtraction):")
+            self.row = int(input("Rows: "))
+            self.col = int(input("Columns: "))
             for k in range(n):
-                self.row = int(input(f"Rows for Matrix {k+1}: " ))
-                self.col = int(input(f"Column for Matrix {k+1}: " ))
+                print(f"Enter elements for Matrix {k+1}:")
                 self.matrices.append(self.get_matrix_input(self.row, self.col))
-            
-        except IndexError:
+        except ValueError:
             print("Invalid input! Please enter integers only.")
             self.create_matrices(n)
                 
-    def get_matrix_input(self ,row ,col):
+    def get_matrix_input(self, row, col):
         try:
-            return [[int(input(f"Element[{i}][{j}]: "))for j in range(col)] for i in range(row)]
-        
-        except IndexError:
+            return [[int(input(f"Element[{i}][{j}]: ")) for j in range(col)] for i in range(row)]
+        except ValueError:
             print("Invalid input! Please enter integers only.")
-            self.get_matrix_input(self.row, self.col)
-    
+            return self.get_matrix_input(row, col)
+        
     def addition(self, n):
         sample = self.matrices
-        try:
-            new_matrix = [[ 0 for _ in range(self.col)] for _ in range(self.row)]
+        result = [[sample[0][i][j] for j in range(self.col)] for i in range(self.row)]
+
+        for m in range(1, n):
             for i in range(self.row):
                 for j in range(self.col):
-                    for y in range(n):
-                        new_matrix[i][j] += sample[y][i][j]
-                    # new_matrix.append(new_matrix[i][j])
+                    result[i][j] += sample[m][i][j]
 
-            self.matrices = new_matrix
-            print(self.matrices)
-        except:
-            print("Invalid logic")
+        print("Result of addition:")
+        for row in result:
+            print(row)
+        self.matrices = result
+
         
 
     def subtraction(self, n):
         sample = self.matrices
-        try:
-            new_matrix =[[ 0 for _ in range(self.col)] for _ in range(self.row)] 
+        result = [[sample[0][i][j] for j in range(self.col)] for i in range(self.row)]
+
+        for m in range(1, n):
             for i in range(self.row):
                 for j in range(self.col):
-                    for y in range(n):
-                        new_matrix[i][j] -= sample[y][i][j]
-                    # new_matrix.append(new_matrix[i][j])
+                    result[i][j] -= sample[m][i][j]
 
-            self.matrices = new_matrix
-            print(self.matrices)
-        except:
-            print("Invalid logic")
+        print("Result of subtraction:")
+        for row in result:
+            print(row)
+        self.matrices = result
+
 
     def multiplication(self):
         # Implement multiplication logic here
