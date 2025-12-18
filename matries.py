@@ -103,34 +103,151 @@ class Matrix:
 
 
     def multiplication(self):
-        # Implement multiplication logic here
-        pass
+        print("Enter second matrix details for multiplication:")
+        r2 = int(input("Rows: "))
+        c2 = int(input("Columns: "))
+
+        if self.col != r2:
+            print("Matrix multiplication not possible!")
+            return
+
+        mat1 = self.matrices[0]
+        mat2 = self.get_matrix_input(r2, c2)
+
+        result = [[0 for _ in range(c2)] for _ in range(self.row)]
+
+        for i in range(self.row):
+            for j in range(c2):
+                for k in range(self.col):
+                    result[i][j] += mat1[i][k] * mat2[k][j]
+
+        print("Result of multiplication:")
+        for row in result:
+            print(row)
+
 
     def division(self):
-        # Implement division logic here
-        pass
+        print("Division means multiplying with inverse of second matrix")
+
+        if self.row != self.col:
+            print("Inverse not possible for non-square matrix")
+            return
+
+        inv = self.inverse(return_matrix=True)
+        if inv is None:
+            return
+
+        mat = self.matrices[0]
+        result = [[0 for _ in range(self.col)] for _ in range(self.row)]
+
+        for i in range(self.row):
+            for j in range(self.col):
+                for k in range(self.col):
+                    result[i][j] += mat[i][k] * inv[k][j]
+
+        print("Result of division:")
+        for row in result:
+            print(row)
+
 
     def transpose(self):
-        # Implement transpose logic here
-        pass
+        mat = self.matrices[0]
+        result = [[mat[j][i] for j in range(self.row)] for i in range(self.col)]
 
-    def determinant(self):
-        # Implement determinant logic here
-        pass
+        print("Transpose of matrix:")
+        for row in result:
+            print(row)
 
-    def inverse(self):
-        # Implement inverse logic here
-        pass
+
+    def determinant(self, mat=None):
+        if mat is None:
+            mat = self.matrices[0]
+
+        if self.row != self.col:
+            print("Determinant only defined for square matrices")
+            return
+
+        if len(mat) == 1:
+            return mat[0][0]
+
+        if len(mat) == 2:
+            det = mat[0][0]*mat[1][1] - mat[0][1]*mat[1][0]
+            print("Determinant:", det)
+            return det
+
+        det = 0
+        for c in range(len(mat)):
+            sub = [row[:c] + row[c+1:] for row in mat[1:]]
+            det += ((-1)**c) * mat[0][c] * self.determinant(sub)
+
+        print("Determinant:", det)
+        return det
+
+
+    def inverse(self, return_matrix=False):
+        mat = self.matrices[0]
+
+        det = self.determinant(mat)
+        if det == 0:
+            print("Inverse not possible (determinant is 0)")
+            return None
+
+        n = len(mat)
+        cofactors = []
+
+        for i in range(n):
+            cofactor_row = []
+            for j in range(n):
+                sub = [row[:j] + row[j+1:] for k, row in enumerate(mat) if k != i]
+                cofactor_row.append(((-1)**(i+j)) * self.determinant(sub))
+            cofactors.append(cofactor_row)
+
+        adjoint = [[cofactors[j][i] for j in range(n)] for i in range(n)]
+        inverse = [[adjoint[i][j]/det for j in range(n)] for i in range(n)]
+
+        if return_matrix:
+            return inverse
+
+        print("Inverse matrix:")
+        for row in inverse:
+            print(row)
+
 
     def rank(self):
-        # Implement rank logic here
-        pass
+        mat = [row[:] for row in self.matrices[0]]
+        rank = 0
+
+        for r in range(self.row):
+            if any(mat[r]):
+                rank += 1
+                for i in range(r+1, self.row):
+                    if mat[i][r] != 0:
+                        factor = mat[i][r] / mat[r][r]
+                        for j in range(self.col):
+                            mat[i][j] -= factor * mat[r][j]
+
+        print("Rank of matrix:", rank)
+
 
     def power(self):
-        # Implement power logic here
-        pass
+        if self.row != self.col:
+            print("Power only defined for square matrices")
+            return
 
+        p = int(input("Enter power: "))
+        result = self.matrices[0]
 
-X = Matrix()
+        for _ in range(p-1):
+            temp = [[0]*self.col for _ in range(self.row)]
+            for i in range(self.row):
+                for j in range(self.col):
+                    for k in range(self.col):
+                        temp[i][j] += result[i][k] * self.matrices[0][k][j]
+            result = temp
+
+        print(f"Matrix raised to power {p}:")
+        for row in result:
+            print(row)
+
 
 
