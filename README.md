@@ -17,15 +17,10 @@ The **Matrix Calculator** is a Python-based console application that allows user
 
 ## Technologies Used
 - Python 3
-- NumPy (for efficient matrix operations)
 
 ## Installation
 1. Ensure you have Python 3 installed. You can download it from [python.org](https://www.python.org/downloads/).
-2. Install NumPy using pip if it's not already installed:
-   ```bash
-   pip install numpy
-   ```
-3. Download or clone this repository:
+2. Download or clone this repository:
    ```bash
    git clone https://github.com/bhaveshsolanki159-codex/Creating-Own-Matrix-Data-type.git
    cd Creating-Own-Matrix-Data-type
@@ -41,6 +36,7 @@ The **Matrix Calculator** is a Python-based console application that allows user
 
 ## Contributing
 Contributions are welcome! Feel free to fork the repository and submit a pull request with your improvements.
+
 
 
 
